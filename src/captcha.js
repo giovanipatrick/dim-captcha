@@ -45,7 +45,7 @@ export function geraCaptcha(){
 export function atrelarCaptcha(elemento){
     $('.dim-captcha').remove();
     $(`${elemento}`).append(`
-            <div class="dim-captcha border bg-secondary bg-gradient w-50 mt-2 p-2 mx-auto text-center">
+            <div class="dim-captcha border bg-light bg-gradient w-50 mt-2 p-2 mx-auto text-center">
                 <div class="input-group">
                     <div class="input-group-prepend">
                     <label id="dim-question">Quanto é ${operacao}?</label>
