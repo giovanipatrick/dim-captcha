@@ -62,9 +62,8 @@ export function geraCaptchaFull(){
     str[2] = letras[Math.floor(Math.random() * (max - min))];
     let captcha_string = num.concat(str).sort().toString().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
     captcha_string = captcha_string.split('').sort(function(){return 0.5-Math.random()}).join('');
-    operacao = captcha_string;
     captcha_resul = captcha_string;
-    console.log(captcha_string);
+    operacao = captcha_string;
 }
 
 export function atrelarCaptcha(elemento){
