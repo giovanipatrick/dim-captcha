@@ -2,15 +2,14 @@ var operacao;
 var captcha_resul;
 var ordem = [];
 
-(function(){
-    geraCaptcha();
-})();
-
+/*
+Captcha de Operações Matemáticas 
+*/
 export function geraCaptcha(){
     let operacoes = ['+','-','*','/'];
     let op_sel = Math.floor(Math.random() * (3 - 0) + 0); 
     let min = 1;
-    let max = 200;
+    let max = 100;
     let valor_um = Math.floor(Math.random() * (max - min) + min);
     let valor_dois = Math.floor(Math.random() * (max - min) + min);
     operacoes = operacoes[op_sel];
@@ -40,6 +39,32 @@ export function geraCaptcha(){
             captcha_resul = ordem[0]/ordem[1];
         break;
     }
+}
+
+/* 
+Captcha com Letra em Números 
+*/
+export function geraCaptchaFull(){
+    let min = 0;
+    let max = 51;
+    let letras = [
+    'a','A','b','B','c','C','d','D','e','E','f','F',
+    'g','G','h','H','i','I','j','J','k','K','l','L','m','M',
+    'n','N','o','O','p','P','q','Q','r','R','s','S','t','T','u','U',
+    'v','V','w','W','x','X','y','Y','z','Z'];
+    let num = [];
+    let str = [];
+    for(let i = 0; i <= 4; i++){
+        num[0] = Math.floor(Math.random() * (10 - 0));
+        str[0] = letras[Math.floor(Math.random() * (max - min))];
+        num[1] = Math.floor(Math.random() * (10 - 0));
+        str[1] = letras[Math.floor(Math.random() * (max - min))];
+        num[2] = Math.floor(Math.random() * (10 - 0));
+        str[2] = letras[Math.floor(Math.random() * (max - min))];
+    }
+    let captcha_string = num.concat(str).sort();
+    operacao = captcha_string;
+    captcha_resul = captcha_string;
 }
 
 export function atrelarCaptcha(elemento){

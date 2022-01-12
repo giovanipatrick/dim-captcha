@@ -1,12 +1,13 @@
 import {
     atrelarCaptcha,
     verificarCaptcha,
-    geraCaptcha
+    geraCaptchaFull
 } from './src/captcha.js';
 
 $(document).ready(()=>{
 
     (function(){
+        geraCaptchaFull();
         atrelarCaptcha('.loginPage');
     })();
 
@@ -17,7 +18,7 @@ $(document).ready(()=>{
             $('.dim-captcha').remove();
         }else{
             console.log('O Captcha está incorreto, tente novamente!');
-            geraCaptcha();
+            geraCaptchaFull();
             atrelarCaptcha('.loginPage');
         }
     });
