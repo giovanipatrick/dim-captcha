@@ -54,17 +54,17 @@ export function geraCaptchaFull(){
     'v','V','w','W','x','X','y','Y','z','Z'];
     let num = [];
     let str = [];
-    for(let i = 0; i <= 4; i++){
-        num[0] = Math.floor(Math.random() * (10 - 0));
-        str[0] = letras[Math.floor(Math.random() * (max - min))];
-        num[1] = Math.floor(Math.random() * (10 - 0));
-        str[1] = letras[Math.floor(Math.random() * (max - min))];
-        num[2] = Math.floor(Math.random() * (10 - 0));
-        str[2] = letras[Math.floor(Math.random() * (max - min))];
-    }
-    let captcha_string = num.concat(str).sort();
+    num[0] = Math.floor(Math.random() * (10 - 0));
+    str[0] = letras[Math.floor(Math.random() * (max - min))];
+    num[1] = Math.floor(Math.random() * (10 - 0));
+    str[1] = letras[Math.floor(Math.random() * (max - min))];
+    num[2] = Math.floor(Math.random() * (10 - 0));
+    str[2] = letras[Math.floor(Math.random() * (max - min))];
+    let captcha_string = num.concat(str).sort().toString().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+    captcha_string = captcha_string.split('').sort(function(){return 0.5-Math.random()}).join('');
     operacao = captcha_string;
     captcha_resul = captcha_string;
+    console.log(captcha_string);
 }
 
 export function atrelarCaptcha(elemento){
@@ -73,8 +73,9 @@ export function atrelarCaptcha(elemento){
             <div class="dim-captcha border bg-light bg-gradient w-50 mt-2 p-2 mx-auto text-center">
                 <div class="input-group">
                     <div class="input-group-prepend">
-                    <label id="dim-question">Quanto é ${operacao}?</label>
+                    <label id="dim-question">${operacao}</label>
                     <input type="text" class="dataCaptcha" id="dim-v-captcha" required>
+                    <p>Não sou um robo!</p>
                     </div>                    
                 </div>
             </div>
@@ -82,7 +83,7 @@ export function atrelarCaptcha(elemento){
 }
 
 export function verificarCaptcha(valor){
-    if(parseInt(valor) === captcha_resul){
+    if(valor == captcha_resul){
         return true;
     }else{
         return false;
