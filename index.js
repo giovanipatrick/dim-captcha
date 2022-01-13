@@ -1,25 +1,27 @@
 import {
     atrelarCaptcha,
     verificarCaptcha,
-    geraCaptchaFull
+    geraCaptchaFull,
+    redrawCaptch
 } from './src/captcha.js';
 
 $(document).ready(()=>{
 
     (function(){
         geraCaptchaFull();
-        atrelarCaptcha('.loginPage');
+        atrelarCaptcha('#d-captcha-draw');
     })();
 
     $(document).on('click','#logar',function(){
         let captchaValue = $("#dim-v-captcha").val();
         if(verificarCaptcha(captchaValue)){
             alert('Login pode prosseguir!');
-            $('.dim-captcha').remove();
+            $('.d-container').remove();
         }else{
             console.log('O Captcha está incorreto, tente novamente!');
+            redrawCaptch();
             geraCaptchaFull();
-            atrelarCaptcha('.loginPage');
+            atrelarCaptcha('#d-captcha-draw');
         }
     });
 

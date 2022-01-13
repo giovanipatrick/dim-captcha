@@ -2,6 +2,17 @@ var operacao;
 var captcha_resul;
 var ordem = [];
 
+
+/* Desenha o Captcha */
+function canvasCaptcha(captcha){
+    $("#d-captcha-draw").append(`
+    <canvas id="d-canv" width="300" height="30"></canvas>
+    `);
+    let ctx = document.getElementById('d-canv').getContext('2d');
+    ctx.font = '20px serif';
+    ctx.strokeText(captcha, 20, 20);
+}
+
 /*
 Captcha de Operações Matemáticas 
 */
@@ -39,6 +50,7 @@ export function geraCaptcha(){
             captcha_resul = ordem[0]/ordem[1];
         break;
     }
+    canvasCaptcha(operacao);
 }
 
 /* 
@@ -54,31 +66,34 @@ export function geraCaptchaFull(){
     'v','V','w','W','x','X','y','Y','z','Z'];
     let num = [];
     let str = [];
-    num[0] = Math.floor(Math.random() * (10 - 0));
-    str[0] = letras[Math.floor(Math.random() * (max - min))];
-    num[1] = Math.floor(Math.random() * (10 - 0));
-    str[1] = letras[Math.floor(Math.random() * (max - min))];
-    num[2] = Math.floor(Math.random() * (10 - 0));
-    str[2] = letras[Math.floor(Math.random() * (max - min))];
+    for(let i = 0; i < 3; i++){
+        num[i] = Math.floor(Math.random() * (10 - 0));
+        str[i] = letras[Math.floor(Math.random() * (max - min))];
+    }
     let captcha_string = num.concat(str).sort().toString().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
     captcha_string = captcha_string.split('').sort(function(){return 0.5-Math.random()}).join('');
     captcha_resul = captcha_string;
     operacao = captcha_string;
+    canvasCaptcha(operacao);
 }
 
 export function atrelarCaptcha(elemento){
-    $('.dim-captcha').remove();
     $(`${elemento}`).append(`
-            <div class="dim-captcha border bg-light bg-gradient w-50 mt-2 p-2 mx-auto text-center">
+            <div class="dim-captcha bg-light bg-gradient w-50  mx-auto text-center">
                 <div class="input-group">
                     <div class="input-group-prepend">
-                    <label id="dim-question">${operacao}</label>
                     <input type="text" class="dataCaptcha" id="dim-v-captcha" required>
                     <p>Não sou um robo!</p>
                     </div>                    
                 </div>
             </div>
     `);
+}
+
+export function redrawCaptch(){
+    $('.dim-captcha').remove();
+    let canvas = document.getElementById('d-canv');
+    canvas.remove();
 }
 
 export function verificarCaptcha(valor){
