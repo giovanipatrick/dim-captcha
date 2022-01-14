@@ -1,15 +1,13 @@
 import {
-    atrelarCaptcha,
-    verificarCaptcha,
-    geraCaptchaFull,
-    redrawCaptch
+    drawCaptcha,
+    redrawCaptch,
+    verificarCaptcha
 } from './src/captcha.js';
 
 $(document).ready(()=>{
 
     (function(){
-        geraCaptchaFull();
-        atrelarCaptcha('#d-captcha-draw');
+        drawCaptcha('full');
     })();
 
     $(document).on('click','#logar',function(){
@@ -19,9 +17,7 @@ $(document).ready(()=>{
             $('.d-container').remove();
         }else{
             console.log('O Captcha está incorreto, tente novamente!');
-            redrawCaptch();
-            geraCaptchaFull();
-            atrelarCaptcha('#d-captcha-draw');
+            redrawCaptch('full');
         }
     });
 

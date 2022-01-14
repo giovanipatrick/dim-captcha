@@ -9,14 +9,20 @@ function canvasCaptcha(captcha){
     <canvas id="d-canv" width="300" height="30"></canvas>
     `);
     let ctx = document.getElementById('d-canv').getContext('2d');
-    ctx.font = '20px serif';
+    let cores = ['red','blue','black','green','silver'];
+    let fonts = ['Arial','Verdana','Times New Roman','Courier New','serif'];
+    let f_style = ['normal','italic','oblique','italic','normal'];
+    let f_weight = ['normal','bold','bolder','lighter','normal'];
+    let numSort = Math.floor(Math.random() * (4 - 0));
+    ctx.font = `${f_style[numSort]} ${f_weight[numSort]} 20px ${fonts[numSort]}`;
+    ctx.strokeStyle = cores[numSort];
     ctx.strokeText(captcha, 20, 20);
 }
 
 /*
 Captcha de Operações Matemáticas 
 */
-export function geraCaptcha(){
+function geraCaptcha(){
     let operacoes = ['+','-','*','/'];
     let op_sel = Math.floor(Math.random() * (3 - 0) + 0); 
     let min = 1;
@@ -24,15 +30,9 @@ export function geraCaptcha(){
     let valor_um = Math.floor(Math.random() * (max - min) + min);
     let valor_dois = Math.floor(Math.random() * (max - min) + min);
     operacoes = operacoes[op_sel];
-    if(valor_um > valor_dois){
-        operacao = valor_um+operacoes+valor_dois;
-        ordem[0] = parseInt(valor_um);
-        ordem[1] = parseInt(valor_dois);
-    }else{
-        operacao = valor_dois+operacoes+valor_um;
-        ordem[0] = parseInt(valor_dois);
-        ordem[1] = parseInt(valor_um);
-    }
+    (valor_um > valor_dois) ? operacao = valor_um+operacoes+valor_dois : operacao = valor_dois+operacoes+valor_um;
+    (valor_um > valor_dois) ? ordem[0] = parseInt(valor_um) : ordem[0] = parseInt(valor_dois);
+    (valor_um > valor_dois) ? ordem[1] = parseInt(valor_dois) : ordem[1] = parseInt(valor_um);
     switch(operacoes){
         case '+':
             captcha_resul = ordem[0]+ordem[1];
@@ -56,7 +56,7 @@ export function geraCaptcha(){
 /* 
 Captcha com Letra em Números 
 */
-export function geraCaptchaFull(){
+function geraCaptchaFull(){
     let min = 0;
     let max = 51;
     let letras = [
@@ -77,7 +77,7 @@ export function geraCaptchaFull(){
     canvasCaptcha(operacao);
 }
 
-export function atrelarCaptcha(elemento){
+function atrelarCaptcha(elemento){
     $(`${elemento}`).append(`
             <div class="dim-captcha bg-light bg-gradient w-50  mx-auto text-center">
                 <div class="input-group">
@@ -90,10 +90,25 @@ export function atrelarCaptcha(elemento){
     `);
 }
 
-export function redrawCaptch(){
+export function drawCaptcha(type){
+    if(type === 'full'){
+        geraCaptchaFull();
+    }else{
+        geraCaptcha();
+    }
+    atrelarCaptcha('#d-captcha-draw');
+}
+
+export function redrawCaptch(type){
     $('.dim-captcha').remove();
     let canvas = document.getElementById('d-canv');
     canvas.remove();
+    if(type === 'full'){
+        geraCaptchaFull();
+    }else{
+        geraCaptcha();
+    }
+    atrelarCaptcha('#d-captcha-draw');
 }
 
 export function verificarCaptcha(valor){
