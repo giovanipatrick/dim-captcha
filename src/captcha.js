@@ -1,12 +1,14 @@
 var operacao;
 var captcha_resul;
 var ordem = [];
+var type_captcha;
 
 
 /* Desenha o Captcha */
-function canvasCaptcha(captcha){
+function canvasCaptcha(captcha,value){
+    type_captcha = value;
     $("#d-captcha-draw").append(`
-    <canvas id="d-canv" width="300" height="30"></canvas>
+    <canvas id="d-canv" width="130" height="30"></canvas>
     `);
     let ctx = document.getElementById('d-canv').getContext('2d');
     let cores = ['red','blue','black','green','silver'];
@@ -50,7 +52,7 @@ function geraCaptcha(){
             captcha_resul = ordem[0]/ordem[1];
         break;
     }
-    canvasCaptcha(operacao);
+    canvasCaptcha(operacao,'numerico');
 }
 
 /* 
@@ -74,21 +76,27 @@ function geraCaptchaFull(){
     captcha_string = captcha_string.split('').sort(function(){return 0.5-Math.random()}).join('');
     captcha_resul = captcha_string;
     operacao = captcha_string;
-    canvasCaptcha(operacao);
+    canvasCaptcha(operacao,'full');
 }
 
 function atrelarCaptcha(elemento){
     $(`${elemento}`).append(`
-            <div class="dim-captcha bg-light bg-gradient w-50  mx-auto text-center">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                    <input type="text" class="dataCaptcha" id="dim-v-captcha" required>
-                    <p>Não sou um robo!</p>
-                    </div>                    
+            <div class="dim-captcha w-50 mb-3 mx-auto text-center">
+                <div class="input-group mb-3">
+                    <button class="dim-reload-c bg-transparent border rounded border-secondary">
+                    <img class="mb-1" src="images/refresh.png" style="width:20px; height:20px;"/>
+                    </button>
+                    <input type="text" class="border border-secondary rounded dataCaptcha form-control" id="dim-v-captcha">
                 </div>
             </div>
     `);
 }
+
+(function(){
+    $(document).on('click','.dim-reload-c',function(){
+        redrawCaptch(type_captcha);
+    });
+})();
 
 export function drawCaptcha(type){
     if(type === 'full'){

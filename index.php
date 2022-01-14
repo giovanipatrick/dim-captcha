@@ -35,14 +35,16 @@
                     .d-container{
                         margin-top:5px;
                         width:100%;
-                        text-align:center;
+                        display: flex !important;
+                        justify-content: center !important;
+                        text-align:center !important;
+                        background-color: whitesmoke;
                     }
-                    #d-canv{
-                        display:inline;
-                        margin-left:130px;
+                    .form-control:focus {
+                        box-shadow:none;
                     }
                 </style>
-                <div class="d-container border">
+                <div class="d-container border border-secondary rounded">
                     <div id="d-captcha-draw">
 
                     </div>
