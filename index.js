@@ -5,7 +5,6 @@ import {
     voiceCaptcha
 } from './src/captcha.js';
 
-$(document).ready(()=>{
 
     (function(){
         drawCaptcha('full');
@@ -13,8 +12,8 @@ $(document).ready(()=>{
     })();
 
 
-    $(document).on('click','#logar',function(){
-        let captchaValue = $("#dim-v-captcha").val();
+    document.querySelector("#logar").addEventListener('click',function(){
+        let captchaValue = document.querySelector("#dim-v-captcha").value;
         if(verificarCaptcha(captchaValue)){
             alert('Login pode prosseguir!');
         }else{
@@ -22,4 +21,4 @@ $(document).ready(()=>{
         }
     });
 
-});
+

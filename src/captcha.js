@@ -19,6 +19,18 @@ function buttonReload(){
     });
 }
 
+function buttonVoice(){
+    document.querySelector("button.dim-speech-c").addEventListener('click',function(){
+        if('speechSynthesis' in window){
+            let speech = new SpeechSynthesisUtterance();
+            speech.text  = (type_captcha === 'full') ? string_value : numeric_value;
+            speechSynthesis.speak(speech);
+        }else{
+            alert("Desculpe mas o seu navegador ainda não possui suporte para esta funcionalidade!");
+        }
+    });
+}
+
 /* 
 Desenha o Captcha 
 */
@@ -120,6 +132,7 @@ function atrelarCaptcha(){
         </div>
     `;
     buttonReload();
+    buttonVoice();
 }
 
 /* 
@@ -156,15 +169,7 @@ function animateDownCaptcha(){
 Leitura de Voz - Captcha 
 */
 export function voiceCaptcha(type){
-    $(document).on('click','.dim-speech-c',function(){
-    if('speechSynthesis' in window){
-    let speech = new SpeechSynthesisUtterance();
-    speech.text  = (type === 'full') ? string_value : numeric_value;
-    speechSynthesis.speak(speech);
-    }else{
-        alert("Desculpe mas o seu navegador ainda não possui suporte para esta funcionalidade!");
-    }
-    });
+    type_captcha = type;
 }
 
 /* 
