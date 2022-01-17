@@ -1,3 +1,6 @@
+/* 
+Atributos utilizados entre os metódos 
+*/
 var operacao;
 var captcha_resul;
 var ordem = [];
@@ -5,7 +8,9 @@ var type_captcha;
 var string_value;
 var numeric_value;
 
-/* Desenha o Captcha */
+/* 
+Desenha o Captcha 
+*/
 function canvasCaptcha(captcha,value){
     type_captcha = value;
     $("#d-captcha-draw").append(`
@@ -82,6 +87,9 @@ function geraCaptchaFull(){
     canvasCaptcha(operacao,'full');
 }
 
+/* 
+Atrela o Captcha ao Elemento 
+*/
 function atrelarCaptcha(elemento){
     $(`${elemento}`).append(`
             <div class="dim-captcha w-75 mx-auto text-center">
@@ -102,20 +110,40 @@ function atrelarCaptcha(elemento){
     `);
 }
 
-function shakeCaptcha(){
+/* 
+Animações - Importadas do Animate.css 
+*/
+function animateShowCaptcha(){
+    $(".d-container").addClass('animate__animated animate__bounceIn');
+    setTimeout(()=>{
+        $(".d-container").removeClass('animate__animated animate__bounceIn');
+    },1200);
+}
+
+function animateShakeCaptcha(){
     $(".d-container").addClass('animate__animated animate__shakeX');
     setTimeout(()=>{
         $(".d-container").removeClass('animate__animated animate__shakeX');
     },800);
 }
 
+function animateDownCaptcha(){
+    $(".d-container").addClass('animate__animated animate__bounceOut');
+    setTimeout(()=>{
+        $('.d-container').remove();
+    },1200);
+}
+
 (function(){
     $(document).on('click','.dim-reload-c',function(){
         redrawCaptch(type_captcha,false);
     });
+    animateShowCaptcha();
 })();
 
-
+/* 
+Leitura de Voz - Captcha 
+*/
 export function voiceCaptcha(type){
     $(document).on('click','.dim-speech-c',function(){
     if('speechSynthesis' in window){
@@ -128,6 +156,9 @@ export function voiceCaptcha(type){
     });
 }
 
+/* 
+Desenha o Captcha 
+*/
 export function drawCaptcha(type){
     if(type === 'full'){
         geraCaptchaFull();
@@ -137,6 +168,9 @@ export function drawCaptcha(type){
     atrelarCaptcha('#d-captcha-draw');
 }
 
+/* 
+Redesenha caso o usuarío erre 
+*/
 export function redrawCaptch(type,bvalue){
     $('.dim-captcha').remove();
     let canvas = document.getElementById('d-canv');
@@ -148,13 +182,16 @@ export function redrawCaptch(type,bvalue){
     }
     atrelarCaptcha('#d-captcha-draw');
     if(bvalue){
-        shakeCaptcha();
+        animateShakeCaptcha();
     }
 }
 
+/* 
+Verifica se foi preenchido corretamente ou não 
+*/
 export function verificarCaptcha(valor){
     if(valor == captcha_resul){
-        $('.d-container').remove();
+        animateDownCaptcha();
         return true;
     }else{
         return false;
