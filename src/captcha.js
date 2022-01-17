@@ -102,9 +102,16 @@ function atrelarCaptcha(elemento){
     `);
 }
 
+function shakeCaptcha(){
+    $(".d-container").addClass('animate__animated animate__shakeX');
+    setTimeout(()=>{
+        $(".d-container").removeClass('animate__animated animate__shakeX');
+    },800);
+}
+
 (function(){
     $(document).on('click','.dim-reload-c',function(){
-        redrawCaptch(type_captcha);
+        redrawCaptch(type_captcha,false);
     });
 })();
 
@@ -130,7 +137,7 @@ export function drawCaptcha(type){
     atrelarCaptcha('#d-captcha-draw');
 }
 
-export function redrawCaptch(type){
+export function redrawCaptch(type,bvalue){
     $('.dim-captcha').remove();
     let canvas = document.getElementById('d-canv');
     canvas.remove();
@@ -140,10 +147,14 @@ export function redrawCaptch(type){
         geraCaptcha();
     }
     atrelarCaptcha('#d-captcha-draw');
+    if(bvalue){
+        shakeCaptcha();
+    }
 }
 
 export function verificarCaptcha(valor){
     if(valor == captcha_resul){
+        $('.d-container').remove();
         return true;
     }else{
         return false;
