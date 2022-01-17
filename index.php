@@ -10,6 +10,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script type="module" src="src/captcha.js?v=<?php echo time(); ?>"></script>
         <script type="module" src="index.js?v=<?php echo time(); ?>"></script>
+        <link rel="stylesheet" href="style/style.css">
     </head>
     <body>
         <div class="loginPage mx-auto text-center w-25" style="margin-top:14%;">
@@ -31,19 +32,6 @@
                     <input type="password" class="form-control" id="password">
                 </div>
 
-                <style>
-                    .d-container{
-                        margin-top:5px;
-                        width:100%;
-                        display: flex !important;
-                        justify-content: center !important;
-                        text-align:center !important;
-                        background-color: whitesmoke;
-                    }
-                    .form-control:focus {
-                        box-shadow:none;
-                    }
-                </style>
                 <div class="d-container border border-secondary rounded">
                     <div id="d-captcha-draw">
 

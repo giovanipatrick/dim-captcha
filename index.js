@@ -1,13 +1,15 @@
 import {
     drawCaptcha,
     redrawCaptch,
-    verificarCaptcha
+    verificarCaptcha,
+    voiceCaptcha
 } from './src/captcha.js';
 
 $(document).ready(()=>{
 
     (function(){
         drawCaptcha('full');
+        voiceCaptcha('full');
     })();
 
     $(document).on('click','#logar',function(){

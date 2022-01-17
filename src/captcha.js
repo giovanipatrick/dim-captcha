@@ -2,7 +2,8 @@ var operacao;
 var captcha_resul;
 var ordem = [];
 var type_captcha;
-
+var string_value;
+var numeric_value;
 
 /* Desenha o Captcha */
 function canvasCaptcha(captcha,value){
@@ -52,6 +53,7 @@ function geraCaptcha(){
             captcha_resul = ordem[0]/ordem[1];
         break;
     }
+    string_value = operacao;
     canvasCaptcha(operacao,'numerico');
 }
 
@@ -76,17 +78,22 @@ function geraCaptchaFull(){
     captcha_string = captcha_string.split('').sort(function(){return 0.5-Math.random()}).join('');
     captcha_resul = captcha_string;
     operacao = captcha_string;
+    string_value = captcha_string;
     canvasCaptcha(operacao,'full');
 }
 
 function atrelarCaptcha(elemento){
     $(`${elemento}`).append(`
-            <div class="dim-captcha w-50 mb-3 mx-auto text-center">
-                <div class="input-group mb-3">
+            <div class="dim-captcha w-75 mx-auto text-center">
+                <div class="input-group">
                     <button class="dim-reload-c bg-transparent border rounded border-secondary">
                     <img class="mb-1" src="images/refresh.png" style="width:20px; height:20px;"/>
                     </button>
                     <input type="text" class="border border-secondary rounded dataCaptcha form-control" id="dim-v-captcha">
+                    <button class="dim-speech-c bg-transparent border rounded border-secondary">
+                    <img class="mb-1" src="images/voice.png" style="width:20px; height:20px;"/>
+                    </button>
+                    <p class="ms-2">Digite os caracteres no campo acima, respeitando letras maiúsculas e minúsculas...</p>
                 </div>
             </div>
     `);
@@ -97,6 +104,19 @@ function atrelarCaptcha(elemento){
         redrawCaptch(type_captcha);
     });
 })();
+
+
+export function voiceCaptcha(type){
+    $(document).on('click','.dim-speech-c',function(){
+    if('speechSynthesis' in window){
+    let speech = new SpeechSynthesisUtterance();
+    (type === 'full') ? speech.text  = string_value : speech.text = numeric_value;
+    speechSynthesis.speak(speech);
+    }else{
+        alert("Desculpe mas o seu navegador ainda não possui suporte para esta funcionalidade!");
+    }
+    });
+}
 
 export function drawCaptcha(type){
     if(type === 'full'){

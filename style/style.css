@@ -1,0 +1,11 @@
+.d-container{
+    margin-top:5px;
+    width:100%;
+    display: flex !important;
+    justify-content: center !important;
+    text-align:center !important;
+    background-color: whitesmoke;
+}
+.form-control:focus {
+    box-shadow:none;
+}
