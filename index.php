@@ -35,7 +35,10 @@
 
                 <div class="d-container border border-secondary rounded">
                     <div id="d-captcha-draw">
-
+                    <!-- Captcha será desenhado aqui -->
+                    </div>
+                    <div id="d-rest">
+                    <!-- Preenchimento do Captcha -->
                     </div>
                 </div>
 

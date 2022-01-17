@@ -12,6 +12,7 @@ $(document).ready(()=>{
         voiceCaptcha('full');
     })();
 
+
     $(document).on('click','#logar',function(){
         let captchaValue = $("#dim-v-captcha").val();
         if(verificarCaptcha(captchaValue)){

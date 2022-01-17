@@ -1,5 +1,5 @@
 /* 
-Atributos utilizados entre os metódos 
+Atributos utilizados entre os metódos
 */
 var operacao;
 var captcha_resul;
@@ -8,14 +8,24 @@ var type_captcha;
 var string_value;
 var numeric_value;
 
+(function(){
+    animateShowCaptcha();
+});
+
+/* Event Listner */
+function buttonReload(){
+    document.querySelector("button.dim-reload-c").addEventListener('click',function(){
+        redrawCaptch(type_captcha,false);
+    });
+}
+
 /* 
 Desenha o Captcha 
 */
 function canvasCaptcha(captcha,value){
     type_captcha = value;
-    $("#d-captcha-draw").append(`
-    <canvas id="d-canv" width="130" height="30"></canvas>
-    `);
+    let canvas_captcha = document.querySelector("#d-captcha-draw");
+    canvas_captcha.innerHTML += '<canvas id="d-canv" width="130" height="30"></canvas>';
     let ctx = document.getElementById('d-canv').getContext('2d');
     let cores = ['red','blue','black','green','silver'];
     let fonts = ['Arial','Verdana','Times New Roman','Courier New','serif'];
@@ -90,56 +100,57 @@ function geraCaptchaFull(){
 /* 
 Atrela o Captcha ao Elemento 
 */
-function atrelarCaptcha(elemento){
-    $(`${elemento}`).append(`
-            <div class="dim-captcha w-75 mx-auto text-center">
-                <div class="input-group">
-                    <button class="dim-reload-c bg-transparent border rounded border-secondary">
-                    <img class="mb-1" src="images/refresh.png" style="width:20px; height:20px;"/>
-                    </button>
-                    <input type="text" class="border border-secondary rounded dataCaptcha form-control" id="dim-v-captcha">
-                    <button class="dim-speech-c bg-transparent border rounded border-secondary">
-                    <img class="mb-1" src="images/voice.png" style="width:20px; height:20px;"/>
-                    </button>
-                    <p class="altText ms-2">Digite os caracteres no campo acima, respeitando letras maiúsculas e minúsculas...
-                    <br>
-                    <a href="https://diminua.me">dim-captcha v1</a>
-                    </p>
-                </div>
+function atrelarCaptcha(){
+    let atr_html = document.querySelector('#d-rest');
+    atr_html.innerHTML += `
+        <div class="dim-captcha w-75 mx-auto text-center">
+            <div class="input-group">
+                <button class="dim-reload-c bg-transparent border rounded border-secondary">
+                <img class="mb-1" src="images/refresh.png" style="width:20px; height:20px;"/>
+                </button>
+                <input type="text" class="border border-secondary rounded dataCaptcha form-control" id="dim-v-captcha">
+                <button class="dim-speech-c bg-transparent border rounded border-secondary">
+                <img class="mb-1" src="images/voice.png" style="width:20px; height:20px;"/>
+                </button>
+                <p class="altText ms-2">Digite os caracteres no campo acima, respeitando letras maiúsculas e minúsculas...
+                <br>
+                <a href="https://diminua.me">dim-captcha v1</a>
+                </p>
             </div>
-    `);
+        </div>
+    `;
+    buttonReload();
 }
 
 /* 
 Animações - Importadas do Animate.css 
 */
 function animateShowCaptcha(){
-    $(".d-container").addClass('animate__animated animate__bounceIn');
+    document.querySelector('.d-container').classList.add('animate__animated');
+    document.querySelector('.d-container').classList.add('animate__bounceIn');
     setTimeout(()=>{
-        $(".d-container").removeClass('animate__animated animate__bounceIn');
+        document.querySelector('.d-container').classList.toggle('animate__animated');
+        document.querySelector('.d-container').classList.toggle('animate__bounceIn');
     },1200);
 }
 
 function animateShakeCaptcha(){
-    $(".d-container").addClass('animate__animated animate__shakeX');
+    document.querySelector('.d-container').classList.add('animate__animated');
+    document.querySelector('.d-container').classList.add('animate__shakeX');
     setTimeout(()=>{
-        $(".d-container").removeClass('animate__animated animate__shakeX');
+        document.querySelector('.d-container').classList.toggle('animate__animated');
+        document.querySelector('.d-container').classList.toggle('animate__shakeX');
     },800);
 }
 
 function animateDownCaptcha(){
-    $(".d-container").addClass('animate__animated animate__bounceOut');
+    document.querySelector('.d-container').classList.add('animate__animated');
+    document.querySelector('.d-container').classList.add('animate__bounceOut');
     setTimeout(()=>{
-        $('.d-container').remove();
+        document.querySelector('.d-container').remove();
     },1200);
 }
 
-(function(){
-    $(document).on('click','.dim-reload-c',function(){
-        redrawCaptch(type_captcha,false);
-    });
-    animateShowCaptcha();
-})();
 
 /* 
 Leitura de Voz - Captcha 
@@ -165,14 +176,15 @@ export function drawCaptcha(type){
     }else{
         geraCaptcha();
     }
-    atrelarCaptcha('#d-captcha-draw');
+    atrelarCaptcha();
 }
 
 /* 
 Redesenha caso o usuarío erre 
 */
 export function redrawCaptch(type,bvalue){
-    $('.dim-captcha').remove();
+    let dim_cap = document.querySelector('.dim-captcha');
+    dim_cap.remove();
     let canvas = document.getElementById('d-canv');
     canvas.remove();
     if(type === 'full'){
@@ -180,7 +192,7 @@ export function redrawCaptch(type,bvalue){
     }else{
         geraCaptcha();
     }
-    atrelarCaptcha('#d-captcha-draw');
+    atrelarCaptcha();
     if(bvalue){
         animateShakeCaptcha();
     }
@@ -197,4 +209,6 @@ export function verificarCaptcha(valor){
         return false;
     }
 }
+
+
 
