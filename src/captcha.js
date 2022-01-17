@@ -53,7 +53,7 @@ function geraCaptcha(){
             captcha_resul = ordem[0]/ordem[1];
         break;
     }
-    string_value = operacao;
+    numeric_value = operacao;
     canvasCaptcha(operacao,'numerico');
 }
 
