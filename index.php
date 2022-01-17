@@ -10,7 +10,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script type="module" src="src/captcha.js?v=<?php echo time(); ?>"></script>
         <script type="module" src="index.js?v=<?php echo time(); ?>"></script>
-        <link rel="stylesheet" href="style/style.css">
+        <link rel="stylesheet" href="style/style.css?v=<?php echo time(); ?>">
     </head>
     <body>
         <div class="loginPage mx-auto text-center w-25" style="margin-top:14%;">

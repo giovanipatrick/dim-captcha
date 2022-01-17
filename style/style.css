@@ -6,6 +6,17 @@
     text-align:center !important;
     background-color: whitesmoke;
 }
+
 .form-control:focus {
     box-shadow:none;
+}
+
+.altText{
+    font-size:12px;
+    font-family: serif;
+}
+
+.altText>a{
+    font-weight:bold; 
+    text-decoration:none;
 }

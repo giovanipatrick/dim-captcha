@@ -93,7 +93,10 @@ function atrelarCaptcha(elemento){
                     <button class="dim-speech-c bg-transparent border rounded border-secondary">
                     <img class="mb-1" src="images/voice.png" style="width:20px; height:20px;"/>
                     </button>
-                    <p class="ms-2">Digite os caracteres no campo acima, respeitando letras maiúsculas e minúsculas...</p>
+                    <p class="altText ms-2">Digite os caracteres no campo acima, respeitando letras maiúsculas e minúsculas...
+                    <br>
+                    <a href="https://diminua.me">dim-captcha v1</a>
+                    </p>
                 </div>
             </div>
     `);
@@ -110,7 +113,7 @@ export function voiceCaptcha(type){
     $(document).on('click','.dim-speech-c',function(){
     if('speechSynthesis' in window){
     let speech = new SpeechSynthesisUtterance();
-    (type === 'full') ? speech.text  = string_value : speech.text = numeric_value;
+    speech.text  = (type === 'full') ? string_value : numeric_value;
     speechSynthesis.speak(speech);
     }else{
         alert("Desculpe mas o seu navegador ainda não possui suporte para esta funcionalidade!");
