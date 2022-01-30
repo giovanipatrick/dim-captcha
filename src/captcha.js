@@ -10,7 +10,7 @@ var numeric_value;
 
 (function(){
     animateShowCaptcha();
-});
+})();
 
 /* Event Listner */
 function buttonReload(){
@@ -144,7 +144,7 @@ function animateShowCaptcha(){
     setTimeout(()=>{
         document.querySelector('.d-container').classList.toggle('animate__animated');
         document.querySelector('.d-container').classList.toggle('animate__bounceIn');
-    },1200);
+    },2000);
 }
 
 function animateShakeCaptcha(){
